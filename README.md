@@ -1,3 +1,5 @@
+![SIGNALS](https://signals.emitknowledge.com/assets/temp-logo.png)
+
 # Signals-Boilerplate
 Start your project with preconfigured Signals setup. 
 
