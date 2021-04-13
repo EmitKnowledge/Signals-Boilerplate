@@ -1,45 +1,34 @@
-﻿{
-  "ApplicationConfiguration": {
-    "ProjectName": "App",
-    "ApplicationName": "App.Client.Web",
-    "Enviroment": "Development"
-  },
-  "SecurityConfiguration": {
-    "SaltLenght": 32,
-    "AutoPasswordLenght": 12,
-    "MinPasswordLenght": 12,
-    "TokenLenght": 128,
-    "TokenValidityInDays": 1,
-    "Fish": "KTVRaRB4AcSkL9ryvYPAEXmU"
-  },
-  "NotificationConfiguration": {
-    "Namespace": null,
-    "Issuer": null,
-    "IssuerKey": null,
-    "IsEnabled": true
-  },
-  "StorageConfiguration": {
-    "Name": null,
-    "ConnectionString": null
-  },
-  "WebConfiguration": {
-    "Url": "http://localhost/",
-    "MaxPageSize": 100
-  },
-  "DatabaseConfiguration": {
-    "DatabaseConnections": [
-      {
-        "Name": "Development",
-        "IpAddress": "localhost",
-        "Database": "boilerplate.db",
-        "Uid": "boilerplate.usr",
-        "Pwd": "boilerplate.pass"
-      }
-    ],
-    "ActiveEnvironment": "Development"
-  },
-  "LocalizationConfiguration": {
-    "CookieKey": "_cultureInfo",
-    "DefaultCulture": "en-US"
-  }
+﻿/* 
+	Your application configuration mapped to your configuration classes
+*/
+{
+	"ApplicationConfiguration": {
+		"ProjectName": "ACME",
+		"ApplicationName": "Acme.Client.Web",
+		"Enviroment": "Development"
+	},
+	"NotificationConfiguration": {
+		"DbTableName": "SystemMessage"
+	},
+	"WebConfiguration": {
+		"WebUrl": "https://local.acme.com:3000",
+		"ApiUrl": "https://local.acme.com",
+		"CookieDomain": "local.acme.com"
+	},
+	"DatabaseConfiguration": {
+		"DatabaseConnections": [
+			{
+				"Name": "Development",
+				"IpAddress": "sql.emitknowledge.com",
+				"Database": "acme.db",
+				"Uid": "acme.usr",
+				"Pwd": "dsxxGc4YpSFQacjSvra6"
+			}
+		],
+		"ActiveEnvironment": "Development"
+	},
+	"LocalizationConfiguration": {
+		"CookieKey": "_cultureInfo",
+		"DefaultCulture": "en-US"
+	}
 }

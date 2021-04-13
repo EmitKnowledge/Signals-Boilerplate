@@ -17,7 +17,7 @@ namespace App.Domain.Processes.Generic.Specification
         /// <returns></returns>
         public override bool Validate(T input)
         {
-            return input.IsNull();
+            return !input.IsNull();
         }
 
         #endregion Overrides of BaseSpecification<T>

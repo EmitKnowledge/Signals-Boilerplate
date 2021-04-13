@@ -1,10 +1,13 @@
 ﻿using App.Domain.DataRepository.Base;
+using App.Domain.DataRepository.Extensions;
 using App.Domain.DataRepositoryContracts;
 using App.Domain.Entities.Common;
 using App.Domain.Entities.Users;
 using Dapper;
 using Signals.Aspects.DI.Attributes;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
 
 namespace App.Domain.DataRepository.Users
 {
@@ -19,16 +22,6 @@ namespace App.Domain.DataRepository.Users
         public User GetUserByEmailWithCriticalDataIncluded(string email)
         {
             return base.FirstOrDefault(Projection<User>.Default, x => x.Email == email);
-        }
-
-        /// <summary>
-        /// Get user with password and password hash included
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        public User GetUserByUsernameWithCriticalDataIncluded(string username)
-        {
-            return base.FirstOrDefault(Projection<User>.Default, user => user.Username == username);
         }
 
         /// <summary>
@@ -48,123 +41,105 @@ namespace App.Domain.DataRepository.Users
         }
 
         /// <summary>
-        /// Returns user by its email address
+        /// Search against the users
+        /// No filters will return all data order by name asc
         /// </summary>
-        /// <param name="email"></param>
-        /// <returns></returns>
-        public User GetUserByEmail(string email)
-        {
-            var existingUser = base.FirstOrDefault(Projection<User>.Default, user => user.Email == email);
-            if (existingUser != null)
-            {
-                existingUser.Password = null;
-                existingUser.PasswordSalt = null;
-            }
-            return existingUser;
-        }
-
-        /// <summary>
-        /// Returns user by its username
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        public User GetUserByUsername(string username)
-        {
-            var existingUser = base.FirstOrDefault(Projection<User>.Default, user => user.Username == username);
-            if (existingUser != null)
-            {
-                existingUser.Password = null;
-                existingUser.PasswordSalt = null;
-            }
-            return existingUser;
-        }
-
-        /// <summary>
-        /// Returns users by their username
-        /// </summary>
-        /// <param name="userIds"></param>
-        /// <returns></returns>
-        public List<User> GetUsersById(List<int> userIds)
-        {
-            var users = base.GetAll(user => userIds.Contains(user.Id));
-            for (int i = 0; i < users.Count; i++)
-            {
-                users[i].Password = null;
-                users[i].PasswordSalt = null;
-            }
-            return users;
-        }
-
-        /// <summary>
-        /// Search for a content
-        /// </summary>
-        /// <param name="content"></param>
         /// <param name="queryOptions"></param>
         /// <returns></returns>
-        public List<User> Search(string content, QueryOptions queryOptions = null)
+        public List<User> Search(QueryOptions queryOptions)
         {
-            var users = base.GetAll(user => user.Email.Contains(content) ||
-                                            user.Username.Contains(content) ||
-                                            user.Name.Contains(content));
-
-            for (int i = 0; i < users.Count; i++)
+            return Using(connection =>
             {
-                users[i].Password = null;
-                users[i].PasswordSalt = null;
-            }
-            return users;
-        }
-
-        /// <summary>
-        /// Change current password of the user while the user is logged in
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="newPassword"></param>
-        /// <param name="newPasswordHash"></param>
-        public void UpdatePassword(int userId, string newPassword, string newPasswordHash)
-        {
-            Using(connection =>
-            {
-                connection.Execute(@"UPDATE [USER] SET Password = @Password, PasswordSalt = @PasswordSalt WHERE ID = @Id", new
+                dynamic executionData = new ExpandoObject();
+                // filters
+                var whereClause = queryOptions.Filters.Select(x =>
                 {
-                    Password = newPassword,
-                    PasswordSalt = newPasswordHash,
-                    Id = userId
-                });
+                    switch (x.Name)
+                    {
+                        case "CompanyId":
+                            int.TryParse(x.Value, out var companyId);
+                            executionData.CompanyId = companyId;
+                            return "u.CompanyId = @CompanyId";
+                        case "Type":
+                            int.TryParse(x.Value, out var type);
+                            executionData.Type = type;
+                            return "u.Type = @Type";
+                        default:
+                            return SqlExtensions.SqlTrue;
+                    }
+                }).ToList().ToSqlWhereClause(SqlOperator.And);
+
+                // orders
+                var orderByClause = queryOptions.Orders.Select(x =>
+                {
+                    string orderBy;
+                    switch (x.Field)
+                    {
+                        case "Name":
+                            orderBy = "u.Name";
+                            break;
+                        default:
+                            orderBy = "u.Name";
+                            break;
+                    }
+                    return $"{orderBy} {x.OrderType}";
+                }).ToList().ToSqlOrderByClause(() => "u.Name ASC");
+
+                var pagingClause = queryOptions.ToSqlPagedClause(executionData as ExpandoObject);
+
+                var sql =
+                    $@"
+                        SELECT *
+	                    FROM [User] u
+	                    WHERE {whereClause}
+                        ORDER BY {orderByClause}
+                        {pagingClause}
+                    ";
+
+                var result = connection.Query<User>(sql, (object)executionData);
+                return result.ToList();
             });
         }
 
         /// <summary>
-        /// Update user basic info
+        /// Return total count for the provided query options
         /// </summary>
-        /// <param name="requestingUser"></param>
-        public void UpdateUserProfile(User requestingUser)
+        /// <param name="queryOptions"></param>
+        /// <returns></returns>
+        public int SearchCount(QueryOptions queryOptions)
         {
-            Using(connection =>
+            return Using(connection =>
             {
-                connection.Execute(@"UPDATE [USER] SET Username = @Username, Name = @Name WHERE ID = @Id", new
+                dynamic executionData = new ExpandoObject();
+                // filters
+                var whereClause = queryOptions.Filters.Select(x =>
                 {
-                    requestingUser.Username,
-                    requestingUser.Name,
-                    requestingUser.Id
-                });
-            });
-        }
+                    switch (x.Name)
+                    {
+                        case "CompanyId":
+                            int.TryParse(x.Value, out var companyId);
+                            executionData.CompanyId = companyId;
+                            return "u.CompanyId = @CompanyId";
+                        case "Type":
+                            int.TryParse(x.Value, out var type);
+                            executionData.Type = type;
+                            return "u.Type = @Type";
+                        default:
+                            return SqlExtensions.SqlTrue;
+                    }
+                }).ToList().ToSqlWhereClause(SqlOperator.And);
 
-        /// <summary>
-        /// Update user email
-        /// </summary>
-        /// <param name="requestingUser"></param>
-        /// <param name="email"></param>
-        public void UpdateUserEmail(User requestingUser, string email)
-        {
-            Using(connection =>
-            {
-                connection.Execute(@"UPDATE [USER] SET Email = @Email WHERE ID = @Id", new
-                {
-                    Email = email,
-                    requestingUser.Id
-                });
+                var pagingClause = queryOptions.ToSqlPagedClause(executionData as ExpandoObject);
+
+                var sql =
+                    $@"
+                        SELECT COUNT(u.Id)
+	                    FROM [User] u
+	                    WHERE {whereClause}
+                    ";
+
+                var result = connection.ExecuteScalar<int>(sql, (object)executionData);
+                return result;
             });
         }
 
@@ -186,22 +161,6 @@ namespace App.Domain.DataRepository.Users
                 existingUser = base.FirstOrDefault(Projection<User>.Default, x => x.Email == email);
             }
             return existingUser != null;
-        }
-
-        /// <summary>
-        /// Mark that user identity is confirmed
-        /// </summary>
-        /// <param name="user"></param>
-        public void MarUserAsVerified(User user)
-        {
-            Using(connection =>
-            {
-                connection.Execute(@"UPDATE [USER] SET IsVerified = @IsVerified WHERE ID = @Id", new
-                {
-                    IsVerified = true,
-                    user.Id
-                });
-            });
         }
     }
 }

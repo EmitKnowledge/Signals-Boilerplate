@@ -2,8 +2,6 @@
 using App.Domain.Configuration.Database;
 using App.Domain.Configuration.Localization;
 using App.Domain.Configuration.Notifications;
-using App.Domain.Configuration.Security;
-using App.Domain.Configuration.Storage;
 using App.Domain.Configuration.Web;
 using Signals.Aspects.Configuration;
 
@@ -22,20 +20,10 @@ namespace App.Domain.Configuration
         public ApplicationConfigurationElement ApplicationConfiguration { get; set; }
 
         /// <summary>
-        /// Configuration of the security
-        /// </summary>
-        public SecurityConfigurationElement SecurityConfiguration { get; set; }
-
-        /// <summary>
         /// Configuration for notification
         /// </summary>
         public NotificationConfigurationElement NotificationConfiguration { get; set; }
-
-        /// <summary>
-        /// Configuration for storage
-        /// </summary>
-        public StorageConfigurationElement StorageConfiguration { get; set; }
-        
+    
         /// <summary>
         /// Configuration for web
         /// </summary>

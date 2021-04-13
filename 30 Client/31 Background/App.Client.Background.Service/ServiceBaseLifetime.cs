@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.ServiceProcess;
+﻿using System.Threading.Tasks;
 using System.Threading;
-using System.Threading.Tasks;
+using System.ServiceProcess;
+using System;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace App.Client.Background.Service
 {
@@ -41,16 +41,16 @@ namespace App.Client.Background.Service
     {
         private readonly TaskCompletionSource<object> _delayStart = new TaskCompletionSource<object>();
 
+        private IHostApplicationLifetime ApplicationLifetime { get; }
+
         /// <summary>
         /// CTOR
         /// </summary>
         /// <param name="applicationLifetime"></param>
-        public ServiceBaseLifetime(IApplicationLifetime applicationLifetime)
+        public ServiceBaseLifetime(IHostApplicationLifetime applicationLifetime)
         {
             ApplicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
         }
-
-        private IApplicationLifetime ApplicationLifetime { get; }
 
         /// <summary>
         /// Handle hor waiting for task

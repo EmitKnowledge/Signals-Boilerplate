@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="NodaTime" Version="3.0.5" />
-    <PackageReference Include="Signals.Core" Version="2.0.0" />
+    <PackageReference Include="Signals.Core" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>

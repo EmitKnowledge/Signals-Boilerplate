@@ -1,33 +1,33 @@
-﻿using App.Domain.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using NodaTime;
-using NodaTime.Serialization.JsonNet;
-using Signals.Aspects.Caching.Enums;
-using Signals.Aspects.Caching.InMemory;
-using Signals.Aspects.Caching.InMemory.Configurations;
-using Signals.Aspects.CommunicationChannels.ServiceBus.Configurations;
-using Signals.Aspects.Configuration.File;
-using Signals.Aspects.DI.Autofac;
-using Signals.Aspects.ErrorHandling.Polly;
-using Signals.Aspects.ErrorHandling.Strategies;
-using Signals.Aspects.Localization.File.Configurations;
-using Signals.Aspects.Logging.Enums;
-using Signals.Aspects.Logging.NLog.Configurations;
-using Signals.Core.Background.Configuration;
-using Signals.Core.Background.Configuration.Bootstrapping;
-using Signals.Core.Common.Instance;
-using Signals.Core.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-
+using System.Reflection;
+using System.Net;
+using System.Linq;
+using System.IO;
+using System.Globalization;
+using System.Diagnostics;
+using System.Collections.Generic;
+using Signals.Core.Configuration;
+using Signals.Core.Common.Instance;
+using Signals.Core.Background.Configuration;
+using Signals.Core.Background.Configuration.Bootstrapping;
+using Signals.Aspects.Logging.NLog.Configurations;
+using Signals.Aspects.Logging.Enums;
+using Signals.Aspects.Localization.File.Configurations;
+using Signals.Aspects.ErrorHandling.Strategies;
+using Signals.Aspects.ErrorHandling.Polly;
+using Signals.Aspects.DI.Autofac;
+using Signals.Aspects.Configuration.File;
+using Signals.Aspects.CommunicationChannels.MsSql.Configurations;
+using Signals.Aspects.Caching.InMemory;
+using Signals.Aspects.Caching.InMemory.Configurations;
+using Signals.Aspects.Caching.Enums;
+using NodaTime;
+using NodaTime.Serialization.JsonNet;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using App.Domain.Configuration;
 
 namespace App.Client.Background.Service
 {
@@ -76,6 +76,8 @@ namespace App.Client.Background.Service
         /// <returns></returns>
         public Task StartAsync(CancellationToken cancellationToken)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+
             string environment = null;
             FileConfigurationProvider ProviderForFile(string name) => new FileConfigurationProvider
             {
@@ -84,25 +86,36 @@ namespace App.Client.Background.Service
                 ReloadOnAccess = false
             };
 
+            // set active configuration
             EnvironmentConfiguration.UseProvider(ProviderForFile("environment.config.json"));
             environment = EnvironmentConfiguration.Instance.Environment;
 
+            // load custom configurations from file
+
+            // Signals core application configuration
             ApplicationConfiguration.UseProvider(ProviderForFile("application.config.json"));
+            // Signals core background application configuration
             BackgroundApplicationConfiguration.UseProvider(ProviderForFile("background.application.config.json"));
+            // Application custom domain configuration
             DomainConfiguration.UseProvider(ProviderForFile("domain.config.json"));
 
+            // use general exception handling strategy
             var strategyBuilder = new StrategyBuilder();
             strategyBuilder.Add<Exception>(new RetryStrategy { RetryCount = 3, RetryCooldown = TimeSpan.FromMinutes(5) }).SetAutoHandling(false);
 
+            // configure Signals aspects
             var config = new BackgroundApplicationBootstrapConfiguration
             {
+                // configure dependency injection
                 RegistrationService = new RegistrationService(),
+                // configure caching 
                 CacheConfiguration = new InMemoryCacheConfiguration
                 {
                     DataProvider = new InMemoryDataProvider(),
                     ExpirationPolicy = CacheExpirationPolicy.Sliding,
                     ExpirationTime = TimeSpan.FromMinutes(1)
                 },
+                // configure logging in database
                 LoggerConfiguration = new DatabaseLoggingConfiguration
                 {
                     Database = DomainConfiguration.Instance.DatabaseConfiguration.ActiveConfiguration.Database,
@@ -112,6 +125,7 @@ namespace App.Client.Background.Service
                     DataProvider = DataProvider.SqlClient,
                     TableName = "LogEntity"
                 },
+                // configure localization from json files
                 LocalizationConfiguration = new JsonDataProviderConfiguration
                 {
                     DirectoryPath = Path.Combine(AppContext.BaseDirectory, "system.resources"),
@@ -140,19 +154,27 @@ namespace App.Client.Background.Service
                         }
                     }
                 },
+                // configure pubsub with MSSQL broker
+                ChannelConfiguration = new MsSqlChannelConfiguration
+                {
+                    // make sure broker is enabled in the database
+                    // ex: ALTER DATABASE [acme.db] SET ENABLE_BROKER WITH ROLLBACK IMMEDIATE
+                    ConnectionString = DomainConfiguration.Instance.DatabaseConfiguration.ActiveConfiguration.ConnectionString,
+                    DbTableName = DomainConfiguration.Instance.NotificationConfiguration.DbTableName,
+                    MessageListeningStrategy = MessageListeningStrategy.Broker
+                },
                 StrategyBuilder = new StrategyBuilder().SetAutoHandling(false),
-                //ChannelConfiguration = new ServiceBusChannelConfiguration
-                //{
-                //    ConnectionString = DomainConfiguration.Instance.NotificationConfiguration.ConnectionString
-                //}
             };
 
+            // set default serialization settings
             config.JsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings();
             config.JsonSerializerSettings.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
 
+            // bootstrap the configuration from the references assemblies
             var assemblies = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "App.*.dll").Select(file => Assembly.LoadFrom(file)).ToArray();
             config.Bootstrap(assemblies);
 
+            // set current culture and UI culture
             Thread.CurrentThread.CurrentCulture = new CultureInfo(DomainConfiguration.Instance.LocalizationConfiguration.DefaultCulture);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 

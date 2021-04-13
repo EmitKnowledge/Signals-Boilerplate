@@ -8,12 +8,18 @@ namespace App.Domain.Configuration.Web
         /// Web endpoing url
         /// </summary>
         [Required]
-        public string Url { get; set; }
+        public string WebUrl { get; set; }
 
         /// <summary>
-        /// Maximum page size that can be returned by the API
+        /// Web endpoing url
         /// </summary>
         [Required]
-        public int MaxPageSize { get; set; }
+        public string ApiUrl { get; set; }
+
+        /// <summary>
+        /// The domain of the cookie
+        /// </summary>
+        [Required]
+        public string CookieDomain { get; set; }
     }
 }

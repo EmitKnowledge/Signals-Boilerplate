@@ -14,54 +14,19 @@ namespace App.Domain.DataRepositoryContracts
         User GetUserByEmailWithCriticalDataIncluded(string email);
 
         /// <summary>
-        /// Get user with password and password hash included
+        /// Search against the users
+        /// No filters will return all data order by name asc
         /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        User GetUserByUsernameWithCriticalDataIncluded(string username);
-
-        /// <summary>
-        /// Returns user by its email address
-        /// </summary>
-        /// <param name="email"></param>
-        /// <returns></returns>
-        User GetUserByEmail(string email);
-
-        /// <summary>
-        /// Returns user by its username
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        User GetUserByUsername(string username);
-
-        /// <summary>
-        /// Returns users by their username
-        /// </summary>
-        /// <param name="userIds"></param>
-        /// <returns></returns>
-        List<User> GetUsersById(List<int> userIds);
-
-        /// <summary>
-        /// Search for a content
-        /// </summary>
-        /// <param name="content"></param>
         /// <param name="queryOptions"></param>
         /// <returns></returns>
-        List<User> Search(string content, QueryOptions queryOptions = null);
+        List<User> Search(QueryOptions queryOptions);
 
         /// <summary>
-        /// Change current password of the user while the user is logged in
+        /// Return total count for the provided query options
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="newPassword"></param>
-        /// <param name="newPasswordHash"></param>
-        void UpdatePassword(int userId, string newPassword, string newPasswordHash);
-
-        /// <summary>
-        /// Updates general user data.
-        /// </summary>
-        /// <param name="user"></param>
-        void UpdateUserProfile(User user);
+        /// <param name="queryOptions"></param>
+        /// <returns></returns>
+        int SearchCount(QueryOptions queryOptions);
 
         /// <summary>
         /// Check if an user is exiting (check is done by both username and email)
@@ -70,11 +35,5 @@ namespace App.Domain.DataRepositoryContracts
         /// <param name="email"></param>
         /// <returns></returns>
         bool IsExistingUser(string username, string email);
-
-        /// <summary>
-        /// Mark that user identity is confirmed
-        /// </summary>
-        /// <param name="user"></param>
-        void MarUserAsVerified(User user);
     }
 }

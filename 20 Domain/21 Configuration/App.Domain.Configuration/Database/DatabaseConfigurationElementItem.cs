@@ -38,7 +38,7 @@ namespace App.Domain.Configuration.Database
         public string Pwd { get; set; }
 
         /// <summary>
-        /// Create valid mongodb connection string
+        /// Create valid SQL Server connection string
         /// </summary>
         public string ConnectionString => ToString();
 

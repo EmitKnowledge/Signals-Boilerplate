@@ -1,7 +1,16 @@
-﻿{
-  "StartupNotificationConfiguration": {
-    "Emails": [],
-    "Body": "Background service is up and running on production",
-    "Subject": "Background service has started on production"
-  }
+﻿/* 
+	Signals.Core Background configuration
+
+	* Set a list of email addresses to get notified when the service starts.
+
+	* Set custom body and subject of the sent email
+
+	* SMTP from Signals.Core Application will be used for sending the email
+*/
+{
+	"StartupNotificationConfiguration": {
+		"Emails": [],
+		"Body": "Background service is up and running on development",
+		"Subject": "Background service has started on development"
+	}
 }

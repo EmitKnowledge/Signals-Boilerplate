@@ -3,7 +3,7 @@ using SimpleMigrations;
 
 namespace App.Client.Migrations.Migrations
 {
-    [Migration(20180515103900, "Create user")]
+    [Migration(20180515103900, "CreateUserMigration")]
     public class CreateUserMigration : BaseMigration
     {
         public override void Up()
@@ -11,13 +11,12 @@ namespace App.Client.Migrations.Migrations
             Execute(@"CREATE TABLE [User] (
 	            [Id] [int] IDENTITY(1,1) NOT NULL,
 	            CreatedOn datetime2(7) NOT NULL,
-                Name nvarchar(MAX) NULL,
-                Description nvarchar(MAX) NULL,
                 Email nvarchar(MAX) NOT NULL,
+                Name nvarchar(MAX) NULL,
                 Username nvarchar(MAX) NOT NULL,
                 Password nvarchar(MAX) NOT NULL,
-	            IsVerified [bit] NOT NULL,
                 PasswordSalt nvarchar(MAX) NOT NULL,
+	            IsVerified [bit] NOT NULL,
                 Type int NOT NULL,
             CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED
             (
@@ -34,7 +33,6 @@ namespace App.Client.Migrations.Migrations
         {
             Execute(@"ALTER TABLE [dbo].[User] DROP CONSTRAINT [DF_User_IsVerified]");
             Execute(@"ALTER TABLE [dbo].[User] DROP CONSTRAINT [DF_User_CreateOn]");
-
             Execute(@"DROP TABLE [dbo].[User]");
         }
     }

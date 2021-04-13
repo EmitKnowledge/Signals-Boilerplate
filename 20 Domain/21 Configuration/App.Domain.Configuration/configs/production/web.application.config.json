@@ -1,12 +1,3 @@
 ﻿{
-	"WebUrl": "http://localhost/",
-	"Analytics": {
-		"enableAnalytics": false
-	},
-  "staticResources": {
-    "cdnUrl": "http://localhost/"
-  },
-	"sslConfiguration": {
-		"port": 443
-	}
+	"WebUrl": "https://local.acme.org:3000/"
 }

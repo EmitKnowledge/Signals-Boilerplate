@@ -1,17 +1,27 @@
-﻿{
-  "ApplicationName": "Boilerplate",
-  "ApplicationVersion": "1.0.0",
-  "ApplicationEmail": "boilerplate@gmail.com",
-  "CriticalConfiguration": {
-    "OwnerEmail": null,
-    "Subject": null,
-    "Body": null
-  },
-  "SmtpConfiguration": {
-    "Server": null,
-    "Port": 0,
-    "Username": null,
-    "Password": null,
-    "UseSsl": false
-  }
+﻿/* 
+	Signals.Core Application configuration
+
+	* Set application name, version, email.
+
+	* When [Critical] attribute is used, if the process failes 
+	an email will be sent to the specified email in the Critical configuration.
+
+	* SMTP configuration is used to send email when critical process fails.
+*/
+{
+	"ApplicationName": "ACME",
+	"ApplicationVersion": "1.0.0",
+	"ApplicationEmail": "admin@acme.org",
+	"CriticalConfiguration": {
+		"OwnerEmail": null,
+		"Subject": null,
+		"Body": null
+	},
+	"SmtpConfiguration": {
+		"Server": null,
+		"Port": 0,
+		"Username": null,
+		"Password": null,
+		"UseSsl": false
+	}
 }

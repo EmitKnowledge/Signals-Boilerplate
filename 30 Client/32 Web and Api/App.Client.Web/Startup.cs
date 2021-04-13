@@ -2,6 +2,7 @@ using App.Domain.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Signals.Aspects.Auth.NetCore.Extensions;
@@ -39,7 +40,8 @@ namespace App.Client.Web
         /// <returns></returns>
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            // If using Kestrel:
+            services.AddRazorPages();
             return services.AddSignals();
         }
 
@@ -48,23 +50,30 @@ namespace App.Client.Web
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // show exception for dev environament
             if (EnvironmentConfiguration.IsDevelopment)
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/error");
                 app.UseHsts();
             }
 
-            if (!EnvironmentConfiguration.IsDevelopment)
-                app.UseHttpsRedirection();
+            // set redirect to https as default
+            app.UseHttpsRedirection();
 
             app.Use((HttpContext context, Func<Task> next) =>
             {
+                var syncIOFeature = context.Features.Get<IHttpBodyControlFeature>();
+                if (syncIOFeature != null)
+                {
+                    syncIOFeature.AllowSynchronousIO = true;
+                }
+
                 var cookieKey = DomainConfiguration.Instance.LocalizationConfiguration.CookieKey;
                 var defaultCulture = DomainConfiguration.Instance.LocalizationConfiguration.DefaultCulture;
 
@@ -84,10 +93,14 @@ namespace App.Client.Web
                 return next();
             });
 
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/api/spec", $"{DomainConfiguration.Instance.ApplicationConfiguration.ApplicationName} API v1");
+                options.RoutePrefix = "api-playground";
+            });
             app.UseStaticFiles();
             app.UseSignalsAuth();
             app.UseSignals();
-            app.UseMvcWithDefaultRoute();
         }
     }
 }

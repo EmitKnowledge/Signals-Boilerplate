@@ -11,6 +11,8 @@ namespace App.Domain.DataRepository._Db
         public UserMapper()
         {
             Table("User");
+            Map(x => x.Company).Ignore();
+            Map(x => x.CompanyId).Ignore();
             AutoMap();
         }
     }

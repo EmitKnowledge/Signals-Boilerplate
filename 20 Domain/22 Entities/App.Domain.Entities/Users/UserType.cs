@@ -17,21 +17,21 @@ namespace App.Domain.Entities.Users
         Anonymous,
 
         /// <summary>
-        /// Individual (customer or customer's associate) user of the app
+        /// Employee of the company
         /// </summary>
         [EnumMember]
-        User,
+        CompanyEmployee,
 
         /// <summary>
-        /// Manual worker user for video clip tagging
+        /// Administrator of the company
         /// </summary>
         [EnumMember]
-        MechanicalTurk,
+        CompanyAdmin,
 
         /// <summary>
         /// Administrator of the system
         /// </summary>
         [EnumMember]
-        SystemAdministrator
+        SystemAdmin
     }
 }
