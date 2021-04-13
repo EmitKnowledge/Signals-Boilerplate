@@ -36,16 +36,16 @@
     <None Update="configs\production\web.application.config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="configs\test\application.config.json">
+    <None Update="configs\qa\application.config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="configs\test\background.application.config.json">
+    <None Update="configs\qa\background.application.config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="configs\test\domain.config.json">
+    <None Update="configs\qa\domain.config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="configs\test\web.application.config.json">
+    <None Update="configs\qa\web.application.config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

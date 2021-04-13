@@ -11,7 +11,7 @@
 {
 	"ApplicationName": "ACME",
 	"ApplicationVersion": "1.0.0",
-	"ApplicationEmail": "admin@acme.org",
+	"ApplicationEmail": "admin@acme.com",
 	"CriticalConfiguration": {
 		"OwnerEmail": null,
 		"Subject": null,

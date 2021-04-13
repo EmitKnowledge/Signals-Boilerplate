@@ -19,10 +19,10 @@
 		"DatabaseConnections": [
 			{
 				"Name": "Development",
-				"IpAddress": "sql.emitknowledge.com",
+				"IpAddress": "sql.acme.com",
 				"Database": "acme.db",
 				"Uid": "acme.usr",
-				"Pwd": "dsxxGc4YpSFQacjSvra6"
+				"Pwd": "89wf3YZBdp9QFCbKJJMW"
 			}
 		],
 		"ActiveEnvironment": "Development"

@@ -11,21 +11,21 @@
 		"DbTableName": "SystemMessage"
 	},
 	"WebConfiguration": {
-		"WebUrl": "https://local.acme.com:3000",
-		"ApiUrl": "https://local.acme.com",
-		"CookieDomain": "local.acme.com"
+		"WebUrl": "https://app.acme.com:3000",
+		"ApiUrl": "https://app.acme.com",
+		"CookieDomain": "app.acme.com"
 	},
 	"DatabaseConfiguration": {
 		"DatabaseConnections": [
 			{
-				"Name": "Development",
-				"IpAddress": "localhost",
+				"Name": "Production",
+				"IpAddress": "sql.acme.com",
 				"Database": "acme.db",
 				"Uid": "acme.usr",
-				"Pwd": "acme.pass"
+				"Pwd": "89wf3YZBdp9QFCbKJJMW"
 			}
 		],
-		"ActiveEnvironment": "Development"
+		"ActiveEnvironment": "Production"
 	},
 	"LocalizationConfiguration": {
 		"CookieKey": "_cultureInfo",
