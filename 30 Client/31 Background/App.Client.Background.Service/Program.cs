@@ -28,6 +28,7 @@ using NodaTime.Serialization.JsonNet;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using App.Domain.Configuration;
+using Signals.Aspects.BackgroundProcessing.FluentScheduler;
 
 namespace App.Client.Background.Service
 {
@@ -108,6 +109,8 @@ namespace App.Client.Background.Service
             {
                 // configure dependency injection
                 RegistrationService = new RegistrationService(),
+                // recurring task registry
+                TaskRegistry = new FluentRegistry(),
                 // configure caching 
                 CacheConfiguration = new InMemoryCacheConfiguration
                 {

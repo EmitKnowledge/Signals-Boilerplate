@@ -40,7 +40,6 @@ namespace App.Client.Web
         /// <returns></returns>
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            // If using Kestrel:
             services.AddRazorPages();
             return services.AddSignals();
         }
