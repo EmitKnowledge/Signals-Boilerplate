@@ -11,6 +11,9 @@ using Signals.Core.Processing.Results;
 
 namespace App.Client.Web.Endpoints.Users
 {
+	/// <summary>
+	/// List existing users - /api/endpoints/users/list?queryOptions=JSON.SERIALIZE(queryOptions)
+	/// </summary>
 	[SignalsAuthenticate]
 	[SignalsAuthorize(UserType.SystemAdmin, UserType.CompanyAdmin)]
 	[SignalsApi(HttpMethod = SignalsApiMethod.GET)]

@@ -7,6 +7,9 @@ using Signals.Core.Processing.Results;
 
 namespace App.Client.Web.Endpoints.Users
 {
+    /// <summary>
+    /// Returns data about the logged in user - /api/endpoints/users/me
+    /// </summary>
 	[SignalsAuthenticate]
 	[SignalsApi(HttpMethod = SignalsApiMethod.GET)]
 	public class Me : ApiProcess<MethodResult<UserDto>>

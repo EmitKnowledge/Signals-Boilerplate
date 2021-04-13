@@ -9,6 +9,9 @@ using Signals.Core.Processing.Results;
 
 namespace App.Client.Web.Endpoints.Users
 {
+    /// <summary>
+    /// Register user - /api/endpoints/users/register
+    /// </summary>
     [SignalsAuthenticate]
     [SignalsAuthorize(UserType.SystemAdmin, UserType.CompanyAdmin)]
     [SignalsApi(HttpMethod = SignalsApiMethod.POST)]

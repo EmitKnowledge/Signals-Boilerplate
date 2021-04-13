@@ -9,6 +9,9 @@ using Signals.Core.Processing.Results;
 
 namespace App.Client.Web.Endpoints.Users
 {
+	/// <summary>
+	/// Login user - /api/endpoints/users/login
+	/// </summary>
 	[SignalsApi(HttpMethod = SignalsApiMethod.POST)]
 	public class Login : ApiProcess<LoginUserDto, MethodResult<UserDto>>
     {

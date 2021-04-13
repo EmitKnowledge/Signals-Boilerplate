@@ -10,6 +10,9 @@ using Signals.Core.Processing.Results;
 
 namespace App.Client.Web.Endpoints.Users
 {
+	/// <summary>
+	/// Returns details for the provided user id - /api/endpoints/users/details?id=1
+	/// </summary>
 	[SignalsAuthenticate]
 	[SignalsAuthorize(UserType.SystemAdmin, UserType.CompanyAdmin)]
 	[SignalsApi(HttpMethod = SignalsApiMethod.GET)]

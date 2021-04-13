@@ -4,6 +4,9 @@ using Signals.Core.Processing.Results;
 
 namespace App.Client.Web.Endpoints.Users
 {
+	/// <summary>
+	/// Logout the current user - /api/endpoints/users/logout
+	/// </summary>
 	[SignalsAuthenticate]
 	[SignalsApi(HttpMethod = SignalsApiMethod.GET)]
 	public class Logout : ApiProcess<VoidResult>
