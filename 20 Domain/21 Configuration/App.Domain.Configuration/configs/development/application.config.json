@@ -13,9 +13,11 @@
 	"ApplicationVersion": "1.0.0",
 	"ApplicationEmail": "admin@acme.com",
 	"CriticalConfiguration": {
-		"OwnerEmail": null,
-		"Subject": null,
-		"Body": null
+		"Emails": [
+			"admin@acme.com"
+		],
+		"Subject": "Some critical process failed",
+		"Body": "Details in attachment"
 	},
 	"SmtpConfiguration": {
 		"Server": null,

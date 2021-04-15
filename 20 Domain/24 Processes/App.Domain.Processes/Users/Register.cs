@@ -6,12 +6,14 @@ using Signals.Core.Common.Cryptography;
 using Signals.Core.Processes.Distributed;
 using Signals.Core.Processing.Authentication;
 using Signals.Core.Processing.Authorization;
+using Signals.Core.Processing.Behaviour;
 using Signals.Core.Processing.Input;
 using Signals.Core.Processing.Results;
 
 namespace App.Domain.Processes.Users
 {
-	[SignalsAuthenticate]
+    [Critical]
+    [SignalsAuthenticate]
     [SignalsAuthorize(UserType.SystemAdmin, UserType.CompanyAdmin)]
     public class Register : DistributedProcess<RegisterTranisentData, User, MethodResult<User>>
     {
