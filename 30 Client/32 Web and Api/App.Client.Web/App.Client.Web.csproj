@@ -29,4 +29,8 @@
     <ProjectReference Include="..\..\..\20 Domain\24 Processes\App.Domain.Resources\App.Domain.Resources.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
