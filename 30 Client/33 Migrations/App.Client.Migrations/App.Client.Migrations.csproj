@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\20 Domain\21 Configuration\App.Domain.Configuration\App.Domain.Configuration.csproj" />
     <ProjectReference Include="..\..\20 Domain\21 Configuration\App.Domain.Configuration\App.Domain.Configuration.csproj" />
   </ItemGroup>
   
