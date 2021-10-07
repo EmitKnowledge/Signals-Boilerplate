@@ -26,22 +26,27 @@ namespace App.Domain.Configuration.Database
         public string Database { get; set; }
 
         /// <summary>
-        /// Connection string user id
-        /// </summary>
-        [Required]
+        /// Connection string user id, leave empty if TrustedConnection
+        /// </summary>        
         public string Uid { get; set; }
 
         /// <summary>
-        /// Connection string password
-        /// </summary>
-        [Required]
+        /// Connection string password, leave empty if TrustedConnection
+        /// </summary>        
         public string Pwd { get; set; }
 
         /// <summary>
         /// Create valid SQL Server connection string
         /// </summary>
-        public string ConnectionString => ToString();
-
-        public override string ToString() => string.Format("server={2};Database={3};User Id={0};Password = {1}", Uid, Pwd, IpAddress, Database);
+        public string ConnectionString
+        {
+            get
+            {
+                if(string.IsNullOrEmpty(Uid) && string.IsNullOrEmpty(Pwd))
+                    return string.Format("server={0};Database={1};Trusted_Connection=True", IpAddress, Database);
+                
+                return string.Format("server={2};Database={3};User Id={0};Password = {1}", Uid, Pwd, IpAddress, Database);
+            }
+        }
     }
 }

@@ -11,18 +11,18 @@
 		"DbTableName": "SystemMessage"
 	},
 	"WebConfiguration": {
-		"WebUrl": "https://local.acme.com:3000",
-		"ApiUrl": "https://local.acme.com",
+		"WebUrl": "https://localhost:3000",
+		"ApiUrl": "https://localhost",
 		"CookieDomain": "local.acme.com"
 	},
 	"DatabaseConfiguration": {
 		"DatabaseConnections": [
 			{
 				"Name": "Development",
-				"IpAddress": "sql.acme.com",
-				"Database": "acme.db",
-				"Uid": "acme.usr",
-				"Pwd": "89wf3YZBdp9QFCbKJJMW"
+				"IpAddress": "localhost",
+				"Database": "Signals"
+				//"Uid": "acme.usr",
+				//"Pwd": "89wf3YZBdp9QFCbKJJMW"
 			}
 		],
 		"ActiveEnvironment": "Development"

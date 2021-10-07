@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Domain.Configuration", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "33 Migrations", "33 Migrations", "{D17A949E-0E01-424D-8C58-E8AA89D07CE4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Client.Migrations", "..\30 Client\33 Migrations\App.Client.Migrations.csproj", "{185F9910-AB09-498A-B03C-A06543AFD3D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Client.Migrations", "..\30 Client\33 Migrations\App.Client.Migrations\App.Client.Migrations.csproj", "{185F9910-AB09-498A-B03C-A06543AFD3D7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "21 Configuration", "21 Configuration", "{047908C1-BFE3-4685-BCEC-A869211F72E8}"
 EndProject
