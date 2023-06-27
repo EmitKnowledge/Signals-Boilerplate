@@ -96,7 +96,6 @@ namespace App.Client.Web
                     // configure caching 
                     config.CacheConfiguration = new InMemoryCacheConfiguration
                     {
-                        DataProvider = new InMemoryDataProvider(),
                         ExpirationPolicy = CacheExpirationPolicy.Sliding,
                         ExpirationTime = TimeSpan.FromMinutes(1)
                     };

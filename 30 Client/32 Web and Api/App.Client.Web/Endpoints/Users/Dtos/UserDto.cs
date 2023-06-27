@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using App.Client.Web.Endpoints.Companies.Dtos;
 using App.Domain.Entities.Companies;
 using App.Domain.Entities.Users;
-using Ganss.XSS;
+using Ganss.Xss;
 using Signals.Core.Common.Instance;
 using Signals.Core.Processing.Input;
 

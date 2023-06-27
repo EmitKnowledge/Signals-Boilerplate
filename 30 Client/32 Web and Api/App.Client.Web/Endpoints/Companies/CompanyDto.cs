@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using App.Domain.Entities.Companies;
-using Ganss.XSS;
+using Ganss.Xss;
 using Signals.Core.Processing.Input;
 
 namespace App.Client.Web.Endpoints.Companies.Dtos

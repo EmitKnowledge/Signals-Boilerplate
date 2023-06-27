@@ -1,5 +1,5 @@
 ﻿using App.Domain.Entities.Common;
-using Ganss.XSS;
+using Ganss.Xss;
 using Signals.Core.Common.Instance;
 using Signals.Core.Processing.Input;
 

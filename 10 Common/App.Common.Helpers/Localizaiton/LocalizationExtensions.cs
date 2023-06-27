@@ -30,7 +30,7 @@ namespace App.Common.Helpers.Localizaiton
             var key = $"{entry?.LocalizationCollection?.LocalizationCategory?.Name}-{entry?.LocalizationCollection?.Name}-{entry?.LocalizationKey?.Name}";
 
             string result = engine
-                .CompileRenderAsync(key, entry.Value, model)
+                .CompileRenderStringAsync(key, entry.Value,model)
                 .GetAwaiter()
                 .GetResult();
 

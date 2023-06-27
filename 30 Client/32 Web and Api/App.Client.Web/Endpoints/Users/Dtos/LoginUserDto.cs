@@ -1,4 +1,4 @@
-﻿using Ganss.XSS;
+﻿using Ganss.Xss;
 using Signals.Core.Processing.Input;
 
 namespace App.Client.Web.Endpoints.Users.Dtos
