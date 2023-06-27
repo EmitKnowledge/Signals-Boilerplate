@@ -55,7 +55,6 @@ namespace App.Test.Integration
                 RegistrationService = new RegistrationService(),
                 CacheConfiguration = new InMemoryCacheConfiguration
                 {
-                    DataProvider = new InMemoryDataProvider(),
                     ExpirationPolicy = CacheExpirationPolicy.Sliding,
                     ExpirationTime = TimeSpan.FromMinutes(1)
                 },

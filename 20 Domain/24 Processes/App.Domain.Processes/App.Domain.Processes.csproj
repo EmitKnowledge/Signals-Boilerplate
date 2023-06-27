@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NodaTime" Version="3.0.5" />
-    <PackageReference Include="Signals.Core" Version="2.0.1" />
+    <PackageReference Include="NodaTime" Version="3.1.9" />
+    <PackageReference Include="Signals.Core" Version="2.0.11" />
   </ItemGroup>
 
   <ItemGroup>

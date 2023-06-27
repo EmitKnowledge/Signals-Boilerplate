@@ -1,5 +1,5 @@
 ﻿using App.Domain.Entities.Users;
-using Ganss.XSS;
+using Ganss.Xss;
 using Signals.Core.Processing.Input;
 using System;
 using System.Runtime.Serialization;
