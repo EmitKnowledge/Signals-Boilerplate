@@ -1,27 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.143" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
-    <PackageReference Include="NodaTime.Serialization.JsonNet" Version="3.0.1" />
-    <PackageReference Include="Signals.Aspects.Auth.NetCore" Version="2.0.1" />
-    <PackageReference Include="Signals.Aspects.Caching.InMemory" Version="2.0.3" />
-    <PackageReference Include="Signals.Aspects.Configuration.File" Version="2.0.2" />
-    <PackageReference Include="Signals.Aspects.ErrorHandling.Polly" Version="2.0.1" />
-    <PackageReference Include="Signals.Aspects.Localization.File" Version="2.0.1" />
-    <PackageReference Include="Signals.Aspects.Logging.NLog" Version="2.0.3" />
-    <PackageReference Include="Signals.Aspects.Security.Database" Version="2.0.1" />
-    <PackageReference Include="Signals.Aspects.DI.Autofac" Version="2.0.1" />
-    <PackageReference Include="Signals.Core" Version="2.0.11" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
-    <PackageReference Include="xunit" Version="2.4.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+    <PackageReference Include="Dapper" Version="2.1.79" />
+    <PackageReference Include="HtmlSanitizer" Version="9.0.892" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.5.1" />
+    <PackageReference Include="NodaTime.Serialization.JsonNet" Version="3.2.1" />
+    <PackageReference Include="Signals.Aspects.Auth.NetCore" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Caching.InMemory" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Configuration.File" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.ErrorHandling.Polly" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Localization.File" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Logging.NLog" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Security.Database" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.DI.Autofac" Version="4.0.0" />
+    <PackageReference Include="Signals.Core" Version="4.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>

@@ -1,25 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="NodaTime.Serialization.JsonNet" Version="3.0.1" />
-    <PackageReference Include="Signals.Aspects.Auth.NetCore" Version="2.0.1" />
-    <PackageReference Include="Signals.Aspects.Caching.InMemory" Version="2.0.3" />
-    <PackageReference Include="Signals.Aspects.CommunicationChannels.MsSql" Version="2.0.1" />
-    <PackageReference Include="Signals.Aspects.Configuration.File" Version="2.0.2" />
-    <PackageReference Include="Signals.Aspects.ErrorHandling.Polly" Version="2.0.1" />
-    <PackageReference Include="Signals.Aspects.Localization.File" Version="2.0.1" />
-    <PackageReference Include="Signals.Aspects.Logging.NLog" Version="2.0.3" />
-    <PackageReference Include="Signals.Aspects.Security.Database" Version="2.0.1" />
-    <PackageReference Include="Signals.Aspects.DI.Autofac" Version="2.0.1" />
-    <PackageReference Include="Signals.Core.Web" Version="2.0.7" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="NodaTime.Serialization.JsonNet" Version="3.2.1" />
+    <PackageReference Include="Signals.Aspects.Auth.NetCore" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Caching.InMemory" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.CommunicationChannels.MsSql" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Configuration.File" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.ErrorHandling.Polly" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Localization.File" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Logging.NLog" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Security.Database" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.DI.Autofac" Version="4.0.0" />
+    <PackageReference Include="Signals.Core.Web" Version="4.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.1.7" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.1" />
   </ItemGroup>
 
   <ItemGroup>
