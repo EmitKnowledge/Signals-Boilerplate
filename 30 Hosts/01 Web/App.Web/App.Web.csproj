@@ -17,7 +17,7 @@
     <PackageReference Include="Signals.Aspects.Logging.NLog" Version="4.0.0" />
     <PackageReference Include="Signals.Aspects.Security.Database" Version="4.0.0" />
     <PackageReference Include="Signals.Aspects.DI.Autofac" Version="4.0.0" />
-    <PackageReference Include="Signals.Core.Web" Version="4.0.0" />
+    <PackageReference Include="Signals.Core.Web" Version="4.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.1.7" />
     <PackageReference Include="System.Data.SqlClient" Version="4.9.1" />
   </ItemGroup>
