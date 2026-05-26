@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.79" />
+    <PackageReference Include="HtmlSanitizer" Version="9.0.892" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.5.1" />
+    <PackageReference Include="NodaTime.Serialization.JsonNet" Version="3.2.1" />
+    <PackageReference Include="Signals.Aspects.Auth.NetCore" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Caching.InMemory" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Configuration.File" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.ErrorHandling.Polly" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Localization.File" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Logging.NLog" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.Security.Database" Version="4.0.0" />
+    <PackageReference Include="Signals.Aspects.DI.Autofac" Version="4.0.0" />
+    <PackageReference Include="Signals.Core" Version="4.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\02 Configuration\App.Configuration\App.Configuration.csproj" />
+    <ProjectReference Include="..\..\03 Resources\App.Resources\App.Resources.csproj" />
+    <ProjectReference Include="..\..\10 Core\01 Domain\App.Core.Domain\App.Core.Domain.csproj" />
+    <ProjectReference Include="..\..\10 Core\03 Processes\App.Core.Processes\App.Core.Processes.csproj" />
+    <ProjectReference Include="..\..\20 Infrastructure\01 Repositories\App.Infrastructure.Repositories\App.Infrastructure.Repositories.csproj" />
+    <ProjectReference Include="..\..\20 Infrastructure\03 Integrations\App.Integrations.Example\App.Integrations.Example.csproj" />
+  </ItemGroup>
+
+</Project>

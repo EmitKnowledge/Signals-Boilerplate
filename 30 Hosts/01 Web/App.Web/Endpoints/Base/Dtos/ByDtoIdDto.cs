@@ -1,0 +1,17 @@
+﻿using Ganss.Xss;
+using Signals.Core.Processing.Input;
+
+namespace App.Web.Endpoints.Base.Dtos
+{
+	public class ByDtoIdDto : IDtoData
+	{
+		/// <summary>
+		/// Represents the ID of the entity
+		/// </summary>
+		public int Id { get; set; }
+
+		public void Sanitize(HtmlSanitizer sanitizer)
+		{
+		}
+	}
+}
